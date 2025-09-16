@@ -1,3 +1,9 @@
+# Forked to implement Raspberry Pi RP2040 support
+
+There doesn't seem to be a graphics library for the RP2040 for the SSD1322 controller, so I guess I need to make my own. Thankfully, it looks like someone has already done the hard parts for me.
+
+Original README follows.
+
 # SSD1322 OLED library
 Portable library for 256x64 OLED display with SSD1322 controller (with STM32F4 example project)
 
