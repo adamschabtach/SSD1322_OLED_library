@@ -2,6 +2,12 @@
 
 There doesn't seem to be a graphics library for the RP2040 for the SSD1322 controller, so I guess I need to make my own. Thankfully, it looks like someone has already done the hard parts for me.
 
+## Current Status
+
+### 18 October 2025 
+
+First functional commit. Lots of room for improvement, e.g. I'm using a blocking SPI write, no DMA, etc., but it's a start and now I can use the OLED with my Pico, which means it's good enough for my current intents and purposes.
+
 Original README follows.
 
 # SSD1322 OLED library

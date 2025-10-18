@@ -10,18 +10,19 @@
  * you just have to provide its hardware implementations of functions from this file and higher
  * level functions should work without modification.
  *
- * Copyright (C) 2020 Wojciech Klimek
+ * Rewritten for RP2040 by Adam Schabtach.
+ * 
+ * Copyright (C) 2025 Adam Schabtach
  * MIT license:
  * https://github.com/wjklimek1/SSD1322_OLED_library
  *
  ****************************************************************************************
  */
 
-//=================== Include hardware HAL libraries =====================//
-#include "stm32f4xx_hal.h"
-#include "main.h"
-#include "spi.h"
-
+//=================== Include hardware libraries =====================//
+#include "pico/stdlib.h"
+#include "hardware/spi.h"
+#include "SSD1322_RP2040.h"
 #include "../SSD1322_OLED_lib/SSD1322_HW_Driver.h"
 
 //====================== CS pin low ========================//
@@ -32,7 +33,7 @@
  */
 void SSD1322_HW_drive_CS_low()
 {
-	HAL_GPIO_WritePin(SPI5_CS_GPIO_Port, SPI5_CS_Pin, 0);
+    gpio_put(PIN_CS, 0);
 }
 
 //====================== CS pin high ========================//
@@ -43,7 +44,7 @@ void SSD1322_HW_drive_CS_low()
  */
 void SSD1322_HW_drive_CS_high()
 {
-	HAL_GPIO_WritePin(SPI5_CS_GPIO_Port, SPI5_CS_Pin, 1);
+    gpio_put(PIN_CS, 1);
 }
 
 //====================== DC pin low ========================//
@@ -54,7 +55,7 @@ void SSD1322_HW_drive_CS_high()
  */
 void SSD1322_HW_drive_DC_low()
 {
-	HAL_GPIO_WritePin(SPI5_DC_GPIO_Port, SPI5_DC_Pin, 0);
+    gpio_put(PIN_DC, 0);
 }
 
 //====================== DC pin high ========================//
@@ -65,7 +66,7 @@ void SSD1322_HW_drive_DC_low()
  */
 void SSD1322_HW_drive_DC_high()
 {
-	HAL_GPIO_WritePin(SPI5_DC_GPIO_Port, SPI5_DC_Pin, 1);
+    gpio_put(PIN_DC, 1);
 }
 
 //====================== RESET pin low ========================//
@@ -76,7 +77,7 @@ void SSD1322_HW_drive_DC_high()
  */
 void SSD1322_HW_drive_RESET_low()
 {
-	HAL_GPIO_WritePin(SPI5_RESET_GPIO_Port, SPI5_RESET_Pin, 0);
+    gpio_put(PIN_RESET, 0);
 }
 
 //====================== RESET pin high ========================//
@@ -87,7 +88,7 @@ void SSD1322_HW_drive_RESET_low()
  */
 void SSD1322_HW_drive_RESET_high()
 {
-	HAL_GPIO_WritePin(SPI5_RESET_GPIO_Port, SPI5_RESET_Pin, 1);
+    gpio_put(PIN_RESET, 1);
 }
 
 //====================== Send single SPI byte ========================//
@@ -98,7 +99,7 @@ void SSD1322_HW_drive_RESET_high()
  */
 void SSD1322_HW_SPI_send_byte(uint8_t byte_to_transmit)
 {
-	HAL_SPI_Transmit(&hspi5, &byte_to_transmit, 1, 10);
+	spi_write_blocking(SPI_PORT, &byte_to_transmit, 1);
 }
 
 //====================== Send array of SPI bytes ========================//
@@ -110,7 +111,7 @@ void SSD1322_HW_SPI_send_byte(uint8_t byte_to_transmit)
  */
 void SSD1322_HW_SPI_send_array(uint8_t *array_to_transmit, uint32_t array_size)
 {
-	HAL_SPI_Transmit(&hspi5, array_to_transmit, array_size, 100);
+	spi_write_blocking(SPI_PORT, array_to_transmit, array_size);
 }
 
 //====================== Milliseconds delay ========================//
@@ -125,5 +126,5 @@ void SSD1322_HW_SPI_send_array(uint8_t *array_to_transmit, uint32_t array_size)
  */
 void SSD1322_HW_msDelay(uint32_t milliseconds)
 {
-	HAL_Delay(milliseconds);
+	sleep_ms(milliseconds);
 }

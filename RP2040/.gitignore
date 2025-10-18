@@ -1,0 +1,17 @@
+build
+.vscode/*
+.DS_Store
+*.elf
+*.bin
+*.uf2
+*.hex
+*.map
+*.o
+*.d
+*.lst
+*.sym
+*.img
+*.lib
+*.a
+*.log
+*.lst
