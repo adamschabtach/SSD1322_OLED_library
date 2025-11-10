@@ -42,6 +42,7 @@ file(GLOB SSD1322_SOURCES
 add_executable(
     RP2040 
     SSD1322_RP2040.c 
+    demo.c
     ${SSD1322_SOURCES}
 )
 

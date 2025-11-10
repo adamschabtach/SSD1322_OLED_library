@@ -14,8 +14,8 @@
  *
  ****************************************************************************************
  */
-#ifndef RP2040_H
-#define RP2040_H
+#ifndef SSD1322_OLED_RP2040_H
+#define SSD1322_OLED_RP2040_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -34,7 +34,7 @@ extern "C" {
 #define PIN_DC    20  // Data/Command pin
 #define PIN_RESET 21  // Reset pin
 
-void SDD1322_RP2040_init(void);
+void SSD1322_RP2040_init(void);
 
 #ifdef __cplusplus
 }
